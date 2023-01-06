@@ -8,13 +8,19 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet weak private var textLabel: UILabel!
     
     private var currentQuestionIndex: Int = 0
-    private lazy var currentQuestion = questions[currentQuestionIndex]
     private var correctAnswer: Int = 0
+    private let questionsAmount: Int = 10
+    private let questionFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var currentQuestion: QuizQuestion?
     private var allowAnswer: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        show(quiz: convert(model: currentQuestion))
+        if let firstQuestion = questionFactory.requestNextQuestion() {
+            currentQuestion = firstQuestion
+            let viewModel = convert(model: firstQuestion)
+            show(quiz: viewModel)
+        }
         
     }
     
@@ -29,7 +35,7 @@ final class MovieQuizViewController: UIViewController {
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
                                  question: model.text,
-                                 questionNumber: "\(currentQuestionIndex+1)/\(questions.count)")
+                                 questionNumber: "\(currentQuestionIndex+1)/\(questionsAmount)")
     }
     
     private func showAnswerResult(isCorrect: Bool) {
@@ -46,13 +52,10 @@ final class MovieQuizViewController: UIViewController {
             guard let self = self else {return}
             self.showNextQuestionOrResults()
         }
-                   
-
-        
     }
     
     private func showNextQuestionOrResults() {
-      if currentQuestionIndex == questions.count - 1 { // - 1 потому что индекс начинается с 0, а длинна массива — с 1
+      if currentQuestionIndex == questionsAmount - 1 {
         // показать результат квиза
           let text = "Ваш раунд результат: \(correctAnswer) из 10"
           let viewModel = QuizResultsViewModel (title: "Этот раунд окончен", text: text, buttonText: "Сыграть еще раз")
@@ -64,10 +67,12 @@ final class MovieQuizViewController: UIViewController {
           imageView.layer.masksToBounds = true
           imageView.layer.borderWidth = 0
           allowAnswer = true
-          let nextQuestion = questions[currentQuestionIndex]
-          let viewModel = convert(model: nextQuestion)
-          show(quiz: viewModel)
-          
+          if let nextQuestion = questionFactory.requestNextQuestion() {
+              currentQuestion = nextQuestion
+              let viewModel = convert(model: nextQuestion)
+              
+              show(quiz: viewModel)
+          }       
       }
     }
     
@@ -88,9 +93,16 @@ final class MovieQuizViewController: UIViewController {
                 self.imageView.layer.borderWidth = 0
                 self.allowAnswer = true
                 
-                let firstQuestion = questions[self.currentQuestionIndex]
-                let viewModel = self.convert(model: firstQuestion)
-                self.show(quiz: viewModel)
+                if let firstQuestion = self.questionFactory.requestNextQuestion() {
+                    self.currentQuestion = firstQuestion
+                    let viewModel = self.convert(model: firstQuestion)
+                    
+                    self.show(quiz: viewModel)
+                }
+
+                
+                
+
                 
             }
         alert.addAction(action)
@@ -100,7 +112,7 @@ final class MovieQuizViewController: UIViewController {
     
     @IBAction private func nuButtoneClicked(_ sender: UIButton) {
         if allowAnswer == true {
-            let currentQuestion = questions[currentQuestionIndex]
+            guard let currentQuestion = currentQuestion else {return}
             let givenAnswer = false
             showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
             allowAnswer = false
@@ -110,7 +122,7 @@ final class MovieQuizViewController: UIViewController {
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         if allowAnswer == true {
-            let currentQuestion = questions[currentQuestionIndex]
+            guard let currentQuestion = currentQuestion else {return}
             let givenAnswer = true
             showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
             allowAnswer = false
