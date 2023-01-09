@@ -80,7 +80,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         if currentQuestionIndex == questionsAmount - 1 {
             // показать результат квиза
             let text = "Ваш раунд результат: \(correctAnswer) из 10"
-            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен", text: text, buttonText: "Сыграть еще раз")
+            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
             show(quiz: viewModel)
             
         } else {
@@ -96,13 +96,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private func show(quiz result: QuizResultsViewModel) {
         statisticService?.store(correct: correctAnswer, total: questionsAmount)
-        let alertModel = AlertModel(title: result.title, message: ("\(statisticService?.bestGame.correct)"), buttonText: result.buttonText) {[weak self] in
+        let totalQuizCount = statisticService?.gamesCount ?? 0
+        let recordCorrectAnswer = statisticService?.bestGame.correct ?? 0
+        let recordTotalAnsweer = statisticService?.bestGame.total ?? 0
+        let date = statisticService?.bestGame.date ?? Date()
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "dd.MM.YY hh:mm"
+        let dateFormated = dateFormater.string(from: date)
+        let alertModel = AlertModel(title: result.title, message: ("\(result.text) \n Количество сыгранных квизов: \(totalQuizCount) \n Рекорд: \(recordCorrectAnswer)/\(recordTotalAnsweer) (\(dateFormated))") , buttonText: result.buttonText) {[weak self] in
             guard let self = self else {return}
             
             self.currentQuestionIndex = 0
             self.correctAnswer = 0
             self.imageView.layer.masksToBounds = true
-            self.imageView.layer.borderWidth = 0
+            self.imageView.layer.borderWidth = 00
             self.allowAnswer = true
             self.questionFactory?.requestNextQuestion()
         }
