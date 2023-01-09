@@ -6,7 +6,8 @@
 import Foundation
 
 protocol StatisticService {
-    //func store(correct count: Int, total amount: Int)
+    //func store()
+    func store(correct count: Int, total amount: Int)
     var totalAccuracy: Double { get }
     var gamesCount: Int { get }
     var bestGame: GameRecord { get }
@@ -14,6 +15,10 @@ protocol StatisticService {
 }
 
 final class StatisticServiceImplementation: StatisticService {
+    
+    private enum Keys: String {
+        case correct, total, bestGame, gamesCount
+    }
     
     private let userDefaults = UserDefaults.standard
     var totalAccuracy: Double {
@@ -26,15 +31,13 @@ final class StatisticServiceImplementation: StatisticService {
     }
     var gamesCount: Int {
         get {
-            userDefaults.integer(forKey: "gamesCount")
+            userDefaults.integer(forKey: Keys.gamesCount.rawValue)
         }
         set {
-            userDefaults.set(newValue, forKey: "gamesCount")
+            userDefaults.set(newValue, forKey: Keys.gamesCount.rawValue)
         }
     }
-    private enum Keys: String {
-        case correct, total, bestGame, gamesCount
-    }
+
     
     var bestGame: GameRecord {
         get {
@@ -53,9 +56,18 @@ final class StatisticServiceImplementation: StatisticService {
         }
     } 
     
-
+    func store(correct count: Int, total amount: Int) {
+        let newGame = GameRecord(
+            correct: count,
+            total: amount,
+            date: Date())
+        if newGame > bestGame {
+            bestGame = newGame
+        }
+        gamesCount += 1
+    }
     
-    /*func store(correct count: Int, total amount: Int) {
-        <#code#>
-    }*/
+    
+    //*func store(correct count: Int, total amount: Int) {}
+     
 }
