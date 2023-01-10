@@ -64,10 +64,13 @@ final class StatisticServiceImplementation: StatisticService {
         if newGame > bestGame {
             bestGame = newGame
         }
+        
+        
+        let newGameAccuracy = Double(count) * 100 / Double(amount)
+        totalAccuracy = (totalAccuracy * Double(gamesCount) + newGameAccuracy) / Double(gamesCount+1)
         gamesCount += 1
+        print(newGameAccuracy)
+        print(totalAccuracy)
+        print(Double(gamesCount))
     }
-    
-    
-    //*func store(correct count: Int, total amount: Int) {}
-     
 }
