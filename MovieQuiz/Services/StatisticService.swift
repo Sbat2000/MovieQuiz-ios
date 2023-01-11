@@ -23,10 +23,10 @@ final class StatisticServiceImplementation: StatisticService {
     private let userDefaults = UserDefaults.standard
     var totalAccuracy: Double {
         get {
-            userDefaults.double(forKey: "totalAccuracy")
+            userDefaults.double(forKey: Keys.correct.rawValue)
         }
         set {
-            userDefaults.set(newValue, forKey: "totalAccuracy")
+            userDefaults.set(newValue, forKey: Keys.correct.rawValue )
         }
     }
     var gamesCount: Int {

@@ -79,7 +79,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             // показать результат квиза
-            let text = "Ваш раунд результат: \(correctAnswer) из 10"
+            let text = "Ваш  результат: \(correctAnswer)/10"
             let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
             show(quiz: viewModel)
             

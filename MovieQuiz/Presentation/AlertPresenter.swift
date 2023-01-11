@@ -11,6 +11,10 @@ class AlertPresenter: AlertPresenterProtocol {
     
     weak var delegate: MovieQuizProtocolDelegate?
     
+    init (delegate: MovieQuizProtocolDelegate) {
+        self.delegate = delegate
+    }
+    
     func showAlert(alertModel: AlertModel) {
         let alert = UIAlertController(
             title: alertModel.title,
@@ -23,10 +27,4 @@ class AlertPresenter: AlertPresenterProtocol {
         alert.addAction(action)
         delegate?.presentAlert(alert: alert)
     }
-    
-    init (delegate: MovieQuizProtocolDelegate) {
-        self.delegate = delegate
-    }
-    
 }
-
