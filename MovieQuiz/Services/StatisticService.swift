@@ -69,8 +69,5 @@ final class StatisticServiceImplementation: StatisticService {
         let newGameAccuracy = Double(count) * 100 / Double(amount)
         totalAccuracy = (totalAccuracy * Double(gamesCount) + newGameAccuracy) / Double(gamesCount+1)
         gamesCount += 1
-        print(newGameAccuracy)
-        print(totalAccuracy)
-        print(Double(gamesCount))
     }
 }
