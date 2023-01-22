@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="imr-kL-etN">
-                                <rect key="frame" x="20" y="58" width="374" height="780"/>
+                                <rect key="frame" x="20" y="58" width="374" height="784.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERh-VA-Q1c">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="23.5"/>
@@ -58,10 +58,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEZ-KI-ALa">
-                                        <rect key="frame" x="0.0" y="624.5" width="374" height="75.5"/>
+                                        <rect key="frame" x="0.0" y="624.5" width="374" height="80"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFZ-dj-7C9" userLabel="Question Label">
-                                                <rect key="frame" x="42" y="13" width="290" height="49.5"/>
+                                                <rect key="frame" x="42" y="13" width="290" height="54"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                                 <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UGZ-YJ-FNM">
-                                        <rect key="frame" x="0.0" y="720" width="374" height="60"/>
+                                        <rect key="frame" x="0.0" y="724.5" width="374" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehS-xf-v1q" userLabel="No button">
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="60"/>
@@ -128,10 +128,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="imr-kL-etN" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CGa-dh-lg8"/>
                             <constraint firstItem="imr-kL-etN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Ncw-hy-nZD"/>
                             <constraint firstItem="imr-kL-etN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Uxv-tp-XKx"/>
-                            <constraint firstItem="imr-kL-etN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xy3-3b-eXT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="imr-kL-etN" secondAttribute="trailing" constant="20" id="m96-8l-qwg"/>
                         </constraints>
                     </view>
