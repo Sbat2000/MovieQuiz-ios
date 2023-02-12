@@ -4,25 +4,28 @@ import UIKit
 
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
-    
-    var currentQuestion: QuizQuestion?
-    weak var viewController: MovieQuizViewController?
+
+    private var currentQuestion: QuizQuestion?
+    weak var viewController: MovieQuizViewControllerProtocol?
     private var questionFactory: QuestionFactoryProtocol?
     private let statisticsService: StatisticService!
     
-    let questionsAmount: Int = 10
-    private var currentQuestionIndex: Int = 0
-    var correctAnswers: Int = 0
+
     
-    init(viewCotroller: MovieQuizViewController) {
-        self.viewController = viewCotroller
+    private let questionsAmount: Int = 10
+    private var currentQuestionIndex: Int = 0
+    private var correctAnswers: Int = 0
+    
+    init(viewController: MovieQuizViewControllerProtocol) {
+        self.viewController = viewController
         
         statisticsService = StatisticServiceImplementation()
         
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.loadData()
-        viewCotroller.showLoadingIndicator()
+        viewController.showLoadingIndicator()
     }
+    
     
     //MARK: - QuestionFactoryDelegate
     
@@ -64,19 +67,15 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         return resultMessage
     }
     
-    func proceedWithAnswer(isCorrect: Bool) {
+    private func proceedWithAnswer(isCorrect: Bool) {
         
         didAnswer(isCorrectAnswer: isCorrect)
         
-        viewController?.highlightImageBorder(isCorrect: isCorrect)
-        
-        
-
+        viewController?.highlightImageBorder(isCorrectAnswer: isCorrect)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else {return}
- 
+            guard let self else {return}
             self.proceedToNextQuestionOrResults()
-            self.viewController?.buttonsEndabled()
+            self.viewController?.buttonsEnabled()
         }
     }
     
@@ -104,7 +103,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
 
     
-    func proceedToNextQuestionOrResults() {
+    private func proceedToNextQuestionOrResults() {
         if self.isLastQuestion() {
             // показать результат квиза
             let text = "Ваш  результат: \(correctAnswers)/\(questionsAmount)"
@@ -138,6 +137,21 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         didAnswer(isYes: false)
     }
     
+
+    
+    func showAlert(alertModel: AlertModel) {
+        let alert = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.message,
+            preferredStyle: .alert)
+            
+        let action = UIAlertAction(title: alertModel.buttonText, style: .default) {_ in
+            alertModel.completion()
+        }
+        alert.addAction(action)
+        viewController?.present(alert, animated: true)
+        alert.view.accessibilityIdentifier = "Result alert"
+    }
 }
     
 

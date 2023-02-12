@@ -1,6 +1,6 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate {
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol  {
 
     // MARK: - Lifecycle
     
@@ -11,26 +11,19 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
-//    private var statisticService: StatisticService?
     private var presenter: MovieQuizPresenter!
     
-    private lazy var alertPresenter: AlertPresenterProtocol = AlertPresenter(delegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        presenter = MovieQuizPresenter(viewCotroller: self)
+        presenter = MovieQuizPresenter(viewController: self)
         imageView.layer.cornerRadius = 20
         showLoadingIndicator()
         
     }
     
-    // MARK: - MovieQuizProtocolDelegate
-    
-    func presentAlert(alert: UIAlertController) {
-        present(alert,animated: true, completion: nil)
-    }
     
     // MARK: - QuestionFactoryDelegate
     
@@ -45,12 +38,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
     
 
     
-    func highlightImageBorder(isCorrect: Bool) {
+    func highlightImageBorder(isCorrectAnswer isCorrect: Bool) {
         
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.cornerRadius = 20
-        imageView.layer.borderColor = isCorrect ? UIColor.green.cgColor : UIColor.red.cgColor
+        imageView.layer.borderColor = isCorrect ? UIColor(named: "YP Green")?.cgColor : UIColor(named: "YP Red")?.cgColor
     }
 
     func show(quiz result: QuizResultsViewModel) {
@@ -62,9 +55,9 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
             self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
-            self.buttonsEndabled()
+            self.buttonsEnabled()
         }
-        alertPresenter.showAlert(alertModel: alertModel)
+        presenter.showAlert(alertModel: alertModel)
     }
     
     func showLoadingIndicator() {
@@ -85,10 +78,10 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
             self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
-            self.buttonsEndabled()
+            self.buttonsEnabled()
         }
         
-        alertPresenter.showAlert(alertModel: model)
+        presenter.showAlert(alertModel: model)
     }
     
     @IBAction private func nuButtoneClicked(_ sender: UIButton) {
@@ -109,7 +102,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
         noButton.isEnabled = false
     }
     
-    func buttonsEndabled() {
+    func buttonsEnabled() {
         yesButton.isEnabled = true
         noButton.isEnabled = true
     }

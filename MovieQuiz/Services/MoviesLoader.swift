@@ -13,7 +13,7 @@ protocol MoviesLoading {
 
 struct MoviesLoader: MoviesLoading {
     
-    //MARK: - NetweokClient
+    //MARK: - NetweorkClient
     private let networkClient: NetworkRouting
     
     init(networkClient: NetworkRouting = NetworkClient()) {
