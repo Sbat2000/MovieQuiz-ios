@@ -11,7 +11,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
-    private var statisticService: StatisticService?
+//    private var statisticService: StatisticService?
     private var presenter: MovieQuizPresenter!
     
     private lazy var alertPresenter: AlertPresenterProtocol = AlertPresenter(delegate: self)
@@ -22,7 +22,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
         
         presenter = MovieQuizPresenter(viewCotroller: self)
         imageView.layer.cornerRadius = 20
-        statisticService = StatisticServiceImplementation()
         showLoadingIndicator()
         
     }
@@ -60,36 +59,11 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
             self.presenter.showNextQuestionOrResults()
         }
     }
-    
-//    func showNextQuestionOrResults() {
-//        if presenter.isLastQuestion() {
-//            // показать результат квиза
-//            let text = "Ваш  результат: \(presenter.correctAnswers)/\(presenter.questionsAmount)"
-//            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
-//            show(quiz: viewModel)
-//            
-//        } else {
-//            presenter.switchToNextQuestion() // увеличиваем индекс текущего урока на 1; таким образом мы сможем получить следующий урок
-//            // показать следующий вопрос
-//            imageView.layer.masksToBounds = true
-//            imageView.layer.borderWidth = 0
-//            noButton.isEnabled = true
-//            yesButton.isEnabled = true
-//            self.questionFactory?.requestNextQuestion()
-//        }
-//    }
-    
+
     func show(quiz result: QuizResultsViewModel) {
-        statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
-        let totalQuizCount = statisticService?.gamesCount ?? 0
-        let recordCorrectAnswer = statisticService?.bestGame.correct ?? 0
-        let recordTotalAnsweer = statisticService?.bestGame.total ?? 0
-        let totalAccuracy = String(format: "%.2f", statisticService?.totalAccuracy ?? 0)
-        let date = statisticService?.bestGame.date ?? Date()
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "dd.MM.YY HH:mm"
-        let dateFormated = dateFormater.string(from: date)
-        let alertModel = AlertModel(title: result.title, message: ("\(result.text) \n Количество сыгранных квизов: \(totalQuizCount) \n Рекорд: \(recordCorrectAnswer)/\(recordTotalAnsweer) (\(dateFormated)) \n Средняя точность: \(totalAccuracy)%") , buttonText: result.buttonText) {[weak self] in
+        let message = presenter.makeResultMessage()
+        
+        let alertModel = AlertModel(title: result.title, message: message, buttonText: result.buttonText) {[weak self] in
             guard let self = self else {return}
             
             self.presenter.restartGame()
