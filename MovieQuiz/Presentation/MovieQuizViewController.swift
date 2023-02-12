@@ -45,19 +45,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
     
 
     
-    func showAnswerResult(isCorrect: Bool) {
+    func highlightImageBorder(isCorrect: Bool) {
         
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.cornerRadius = 20
         imageView.layer.borderColor = isCorrect ? UIColor.green.cgColor : UIColor.red.cgColor
-        presenter.didAnswer(isCorrectAnswer: isCorrect)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else {return}
- 
-            self.presenter.showNextQuestionOrResults()
-        }
     }
 
     func show(quiz result: QuizResultsViewModel) {
@@ -69,8 +62,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
             self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
-            self.yesButton.isEnabled = true
-            self.noButton.isEnabled = true
+            self.buttonsEndabled()
         }
         alertPresenter.showAlert(alertModel: alertModel)
     }
@@ -93,8 +85,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
             self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
-            self.yesButton.isEnabled = true
-            self.noButton.isEnabled = true
+            self.buttonsEndabled()
         }
         
         alertPresenter.showAlert(alertModel: model)
@@ -102,14 +93,25 @@ final class MovieQuizViewController: UIViewController, MovieQuizProtocolDelegate
     
     @IBAction private func nuButtoneClicked(_ sender: UIButton) {
         presenter.nuButtoneClicked()
-//        noButton.isEnabled = false
-//        yesButton.isEnabled = false
+        buttonsDisabled()
+
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
-//        yesButton.isEnabled = false
-//        noButton.isEnabled = false
+        buttonsDisabled()
+        
+
+    }
+    
+    func buttonsDisabled() {
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
+    }
+    
+    func buttonsEndabled() {
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
     }
 }
 

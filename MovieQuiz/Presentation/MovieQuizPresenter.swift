@@ -64,6 +64,22 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         return resultMessage
     }
     
+    func proceedWithAnswer(isCorrect: Bool) {
+        
+        didAnswer(isCorrectAnswer: isCorrect)
+        
+        viewController?.highlightImageBorder(isCorrect: isCorrect)
+        
+        
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else {return}
+ 
+            self.proceedToNextQuestionOrResults()
+            self.viewController?.buttonsEndabled()
+        }
+    }
+    
     func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
     }
@@ -88,7 +104,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
 
     
-    func showNextQuestionOrResults() {
+    func proceedToNextQuestionOrResults() {
         if self.isLastQuestion() {
             // показать результат квиза
             let text = "Ваш  результат: \(correctAnswers)/\(questionsAmount)"
@@ -105,7 +121,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         guard let currentQuestion = currentQuestion else {return}
         let givenAnswer = isYes
         
-        viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        proceedWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     func didAnswer(isCorrectAnswer: Bool) {
@@ -121,6 +137,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     func nuButtoneClicked() {
         didAnswer(isYes: false)
     }
+    
 }
     
 
