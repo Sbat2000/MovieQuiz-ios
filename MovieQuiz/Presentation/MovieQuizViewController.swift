@@ -11,7 +11,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
-    private var correctAnswer: Int = 0
     private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticService?
     private let presenter = MovieQuizPresenter()
@@ -62,39 +61,41 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
 
     
     func showAnswerResult(isCorrect: Bool) {
+        
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.cornerRadius = 20
         imageView.layer.borderColor = isCorrect ? UIColor.green.cgColor : UIColor.red.cgColor
+        presenter.didAnswer(isCorrectAnswer: isCorrect)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else {return}
-            self.presenter.correctAnswer = self.correctAnswer
+ 
             self.presenter.questionFactory = self.questionFactory
             self.presenter.showNextQuestionOrResults()
         }
     }
     
-//    private func showNextQuestionOrResults() {
-//        if presenter.isLastQuestion() {
-//            // показать результат квиза
-//            let text = "Ваш  результат: \(correctAnswer)/\(presenter.questionsAmount)"
-//            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
-//            show(quiz: viewModel)
-//            
-//        } else {
-//            presenter.switchToNextQuestion() // увеличиваем индекс текущего урока на 1; таким образом мы сможем получить следующий урок
-//            // показать следующий вопрос
-//            imageView.layer.masksToBounds = true
-//            imageView.layer.borderWidth = 0
-//            noButton.isEnabled = true
-//            yesButton.isEnabled = true
-//            self.questionFactory?.requestNextQuestion()
-//        }
-//    }
+    func showNextQuestionOrResults() {
+        if presenter.isLastQuestion() {
+            // показать результат квиза
+            let text = "Ваш  результат: \(presenter.correctAnswers)/\(presenter.questionsAmount)"
+            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
+            show(quiz: viewModel)
+            
+        } else {
+            presenter.switchToNextQuestion() // увеличиваем индекс текущего урока на 1; таким образом мы сможем получить следующий урок
+            // показать следующий вопрос
+            imageView.layer.masksToBounds = true
+            imageView.layer.borderWidth = 0
+            noButton.isEnabled = true
+            yesButton.isEnabled = true
+            self.questionFactory?.requestNextQuestion()
+        }
+    }
     
     func show(quiz result: QuizResultsViewModel) {
-        statisticService?.store(correct: correctAnswer, total: presenter.questionsAmount)
+        statisticService?.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
         let totalQuizCount = statisticService?.gamesCount ?? 0
         let recordCorrectAnswer = statisticService?.bestGame.correct ?? 0
         let recordTotalAnsweer = statisticService?.bestGame.total ?? 0
@@ -106,8 +107,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         let alertModel = AlertModel(title: result.title, message: ("\(result.text) \n Количество сыгранных квизов: \(totalQuizCount) \n Рекорд: \(recordCorrectAnswer)/\(recordTotalAnsweer) (\(dateFormated)) \n Средняя точность: \(totalAccuracy)%") , buttonText: result.buttonText) {[weak self] in
             guard let self = self else {return}
             
-            self.presenter.resetQuestionIndex()
-            self.correctAnswer = 0
+            self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
             self.yesButton.isEnabled = true
@@ -132,8 +132,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         let model = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [weak self] in
             guard let self = self else {return}
             
-            self.presenter.resetQuestionIndex()
-            self.correctAnswer = 0
+            self.presenter.restartGame()
             self.imageView.layer.masksToBounds = true
             self.imageView.layer.borderWidth = 00
             self.yesButton.isEnabled = true

@@ -11,14 +11,15 @@ final class MovieQuizPresenter {
     
     let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
-    var correctAnswer: Int = 0
+    var correctAnswers: Int = 0
     
     func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
     }
     
-    func resetQuestionIndex() {
+    func restartGame() {
         currentQuestionIndex = 0
+        correctAnswers = 0
     }
     
     func switchToNextQuestion() {
@@ -46,7 +47,7 @@ final class MovieQuizPresenter {
     func showNextQuestionOrResults() {
         if self.isLastQuestion() {
             // показать результат квиза
-            let text = "Ваш  результат: \(correctAnswer)/\(questionsAmount)"
+            let text = "Ваш  результат: \(correctAnswers)/\(questionsAmount)"
             let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
             viewController?.show(quiz: viewModel)
             
@@ -56,19 +57,25 @@ final class MovieQuizPresenter {
         }
     }
     
-    private func didAnwer(isYes: Bool) {
+    private func didAnswer(isYes: Bool) {
         guard let currentQuestion = currentQuestion else {return}
         let givenAnswer = isYes
         
         viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
+    func didAnswer(isCorrectAnswer: Bool) {
+        if isCorrectAnswer {
+            correctAnswers += 1
+        }
+    }
+    
     func yesButtonClicked() {
-        didAnwer(isYes: true)
+        didAnswer(isYes: true)
     }
     
     func nuButtoneClicked() {
-        didAnwer(isYes: false)
+        didAnswer(isYes: false)
     }
 }
     
