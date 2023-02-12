@@ -28,4 +28,6 @@ class AlertPresenter: AlertPresenterProtocol {
         delegate?.presentAlert(alert: alert)
         alert.view.accessibilityIdentifier = "Result alert"
     }
+    
+    
 }
