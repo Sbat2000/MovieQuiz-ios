@@ -12,32 +12,26 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
     private var presenter: MovieQuizPresenter!
+    private var alertPresenter: AlertPresenter!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         presenter = MovieQuizPresenter(viewController: self)
+        alertPresenter = AlertPresenter(viewController: self)
         imageView.layer.cornerRadius = 20
         showLoadingIndicator()
         
     }
-    
-    
-    // MARK: - QuestionFactoryDelegate
-    
     
     func show(quiz step: QuizStepViewModel) {
         imageView.layer.borderColor = UIColor.clear.cgColor
         counterLabel.text = step.questionNumber
         imageView.image = step.image
         textLabel.text = step.question
-        
     }
-    
 
-    
     func highlightImageBorder(isCorrectAnswer isCorrect: Bool) {
         
         imageView.layer.masksToBounds = true
@@ -47,9 +41,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
 
     func show(quiz result: QuizResultsViewModel) {
-        let message = presenter.makeResultMessage()
-        
-        let alertModel = AlertModel(title: result.title, message: message, buttonText: result.buttonText) {[weak self] in
+        let alertModel = AlertModel(title: result.title, message: result.text, buttonText: result.buttonText) {[weak self] in
             guard let self = self else {return}
             
             self.presenter.restartGame()
@@ -57,7 +49,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
             self.imageView.layer.borderWidth = 00
             self.buttonsEnabled()
         }
-        presenter.showAlert(alertModel: alertModel)
+        alertPresenter.showAlert(alertModel: alertModel)
     }
     
     func showLoadingIndicator() {
@@ -81,7 +73,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
             self.buttonsEnabled()
         }
         
-        presenter.showAlert(alertModel: model)
+        alertPresenter.showAlert(alertModel: model)
     }
     
     @IBAction private func nuButtoneClicked(_ sender: UIButton) {

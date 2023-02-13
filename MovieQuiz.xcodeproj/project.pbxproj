@@ -35,6 +35,7 @@
 		E281BB52299199760041D371 /* MovieQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281BB51299199760041D371 /* MovieQuizUITests.swift */; };
 		E299B3B12998BF0000EA7C69 /* MovieQuizViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299B3B02998BF0000EA7C69 /* MovieQuizViewControllerProtocol.swift */; };
 		E299B3B92998C1B100EA7C69 /* MovieQuizPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299B3B82998C1B100EA7C69 /* MovieQuizPresenterTests.swift */; };
+		E299B3CD299A4EBF00EA7C69 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299B3CC299A4EBF00EA7C69 /* AlertPresenter.swift */; };
 		E2A53E18294F6E3300ECEE2D /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2A53E16294F6E3300ECEE2D /* YS Display-Bold.ttf */; };
 		E2A53E19294F6E3300ECEE2D /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2A53E17294F6E3300ECEE2D /* YS Display-Medium.ttf */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		E299B3B62998C1B100EA7C69 /* MovieQuizPresenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieQuizPresenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E299B3B82998C1B100EA7C69 /* MovieQuizPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizPresenterTests.swift; sourceTree = "<group>"; };
 		E299B3C32998F54A00EA7C69 /* MovieQuizTestsTwo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieQuizTestsTwo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E299B3CC299A4EBF00EA7C69 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		E2A53E16294F6E3300ECEE2D /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		E2A53E17294F6E3300ECEE2D /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				AD1ABAB52831907B00B3E448 /* MovieQuizViewController.swift */,
 				AD1ABAB72831907B00B3E448 /* Main.storyboard */,
 				E23838972997934E00D0A6AB /* MovieQuizPresenter.swift */,
+				E299B3CC299A4EBF00EA7C69 /* AlertPresenter.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E22904C12976B928000C7A32 /* NetworkClient.swift in Sources */,
+				E299B3CD299A4EBF00EA7C69 /* AlertPresenter.swift in Sources */,
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				E299B3B12998BF0000EA7C69 /* MovieQuizViewControllerProtocol.swift in Sources */,
 				E22904C32976BB72000C7A32 /* MostPopularMovies.swift in Sources */,

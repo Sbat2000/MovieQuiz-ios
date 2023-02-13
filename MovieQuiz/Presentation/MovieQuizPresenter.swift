@@ -106,8 +106,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private func proceedToNextQuestionOrResults() {
         if self.isLastQuestion() {
             // показать результат квиза
-            let text = "Ваш  результат: \(correctAnswers)/\(questionsAmount)"
-            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: text, buttonText: "Сыграть еще раз")
+            let viewModel = QuizResultsViewModel (title: "Этот раунд окончен!", text: makeResultMessage(), buttonText: "Сыграть еще раз")
             viewController?.show(quiz: viewModel)
             
         } else {
@@ -138,20 +137,22 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
 
-    
-    func showAlert(alertModel: AlertModel) {
-        let alert = UIAlertController(
-            title: alertModel.title,
-            message: alertModel.message,
-            preferredStyle: .alert)
-            
-        let action = UIAlertAction(title: alertModel.buttonText, style: .default) {_ in
-            alertModel.completion()
-        }
-        alert.addAction(action)
-        viewController?.present(alert, animated: true)
-        alert.view.accessibilityIdentifier = "Result alert"
-    }
+//    func showAlert(alertModel: AlertModel) {
+//        let alert = UIAlertController(
+//            title: alertModel.title,
+//            message: alertModel.message,
+//            preferredStyle: .alert)
+//
+//        let action = UIAlertAction(title: alertModel.buttonText, style: .default) {_ in
+//            alertModel.completion()
+//        }
+//        alert.addAction(action)
+//        viewController?.present(alert, animated: true)
+//        alert.view.accessibilityIdentifier = "Result alert"
+//    }
 }
     
+
+
+
 
