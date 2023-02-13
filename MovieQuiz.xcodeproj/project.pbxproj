@@ -16,6 +16,9 @@
 		AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */; };
 		AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD77F5732857F8810062FB14 /* Date+Extensions.swift */; };
 		AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AFA542836189F00399704 /* Array+Extensions.swift */; };
+		E22904C12976B928000C7A32 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22904C02976B928000C7A32 /* NetworkClient.swift */; };
+		E22904C32976BB72000C7A32 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22904C22976BB72000C7A32 /* MostPopularMovies.swift */; };
+		E22904C52976CB52000C7A32 /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22904C42976CB52000C7A32 /* MoviesLoader.swift */; };
 		E23B3D3A296838E4007BF3CC /* QuestionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B3D39296838E4007BF3CC /* QuestionFactory.swift */; };
 		E23B3D3D29683968007BF3CC /* QuizStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B3D3C29683968007BF3CC /* QuizStepViewModel.swift */; };
 		E23B3D3F29683973007BF3CC /* QuizResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B3D3E29683973007BF3CC /* QuizResultsViewModel.swift */; };
@@ -44,6 +47,9 @@
 		AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AD77F5732857F8810062FB14 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		AD7AFA542836189F00399704 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		E22904C02976B928000C7A32 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		E22904C22976BB72000C7A32 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
+		E22904C42976CB52000C7A32 /* MoviesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoader.swift; sourceTree = "<group>"; };
 		E23B3D39296838E4007BF3CC /* QuestionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactory.swift; sourceTree = "<group>"; };
 		E23B3D3C29683968007BF3CC /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
 		E23B3D3E29683973007BF3CC /* QuizResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsViewModel.swift; sourceTree = "<group>"; };
@@ -142,6 +148,8 @@
 				E23B3D4229685104007BF3CC /* QuestionFactoryProtocol.swift */,
 				E23B3D442969251A007BF3CC /* QuestionFactoryDelegate.swift */,
 				E23B3D4E296AE420007BF3CC /* StatisticService.swift */,
+				E22904C02976B928000C7A32 /* NetworkClient.swift */,
+				E22904C42976CB52000C7A32 /* MoviesLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 				E23B3D402968397C007BF3CC /* QuizQuestion.swift */,
 				E23B3D4629694032007BF3CC /* AlertModel.swift */,
 				E23B3D50296AECFC007BF3CC /* GameRecord.swift */,
+				E22904C22976BB72000C7A32 /* MostPopularMovies.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,8 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22904C12976B928000C7A32 /* NetworkClient.swift in Sources */,
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				E23B3D49296940B5007BF3CC /* AlertPresenter.swift in Sources */,
+				E22904C32976BB72000C7A32 /* MostPopularMovies.swift in Sources */,
 				E23B3D4D29695C63007BF3CC /* MovieQuizProtocolDelegate.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
 				E23B3D4329685104007BF3CC /* QuestionFactoryProtocol.swift in Sources */,
@@ -272,6 +283,7 @@
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 				E23B3D51296AECFC007BF3CC /* GameRecord.swift in Sources */,
 				E23B3D4F296AE420007BF3CC /* StatisticService.swift in Sources */,
+				E22904C52976CB52000C7A32 /* MoviesLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +430,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N29P9VDV4Y;
+				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieQuiz/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -434,7 +446,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.practicum.MovieQuiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agaripov.MovieQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -449,7 +461,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N29P9VDV4Y;
+				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieQuiz/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -465,7 +477,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.practicum.MovieQuiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agaripov.MovieQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
