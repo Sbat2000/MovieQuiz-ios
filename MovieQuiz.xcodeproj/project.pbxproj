@@ -38,6 +38,7 @@
 		E299B3CD299A4EBF00EA7C69 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299B3CC299A4EBF00EA7C69 /* AlertPresenter.swift */; };
 		E2A53E18294F6E3300ECEE2D /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2A53E16294F6E3300ECEE2D /* YS Display-Bold.ttf */; };
 		E2A53E19294F6E3300ECEE2D /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2A53E17294F6E3300ECEE2D /* YS Display-Medium.ttf */; };
+		E2BEC5AA299BD48D0071EE0A /* AlertPresenterProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BEC5A9299BD48D0071EE0A /* AlertPresenterProtocolDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		E299B3CC299A4EBF00EA7C69 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		E2A53E16294F6E3300ECEE2D /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		E2A53E17294F6E3300ECEE2D /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
+		E2BEC5A9299BD48D0071EE0A /* AlertPresenterProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocolDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 		E23B3D38296838C7007BF3CC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E2BEC5A9299BD48D0071EE0A /* AlertPresenterProtocolDelegate.swift */,
 				E281BB42298FDD500041D371 /* StubNetworkClient.swift */,
 				E23B3D39296838E4007BF3CC /* QuestionFactory.swift */,
 				E23B3D4229685104007BF3CC /* QuestionFactoryProtocol.swift */,
@@ -491,6 +494,7 @@
 			files = (
 				E22904C12976B928000C7A32 /* NetworkClient.swift in Sources */,
 				E299B3CD299A4EBF00EA7C69 /* AlertPresenter.swift in Sources */,
+				E2BEC5AA299BD48D0071EE0A /* AlertPresenterProtocolDelegate.swift in Sources */,
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				E299B3B12998BF0000EA7C69 /* MovieQuizViewControllerProtocol.swift in Sources */,
 				E22904C32976BB72000C7A32 /* MostPopularMovies.swift in Sources */,

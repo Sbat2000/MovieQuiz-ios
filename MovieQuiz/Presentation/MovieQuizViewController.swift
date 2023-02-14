@@ -12,20 +12,18 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
     private var presenter: MovieQuizPresenter!
-    private var alertPresenter: AlertPresenter!
-    
+    private lazy var alertPresenter = AlertPresenter(delegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         presenter = MovieQuizPresenter(viewController: self)
-        alertPresenter = AlertPresenter(viewController: self)
         imageView.layer.cornerRadius = 20
         showLoadingIndicator()
-        
     }
     
     func show(quiz step: QuizStepViewModel) {
+        
         imageView.layer.borderColor = UIColor.clear.cgColor
         counterLabel.text = step.questionNumber
         imageView.image = step.image
@@ -72,21 +70,17 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
             self.imageView.layer.borderWidth = 00
             self.buttonsEnabled()
         }
-        
         alertPresenter.showAlert(alertModel: model)
     }
     
     @IBAction private func nuButtoneClicked(_ sender: UIButton) {
         presenter.nuButtoneClicked()
         buttonsDisabled()
-
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
         buttonsDisabled()
-        
-
     }
     
     func buttonsDisabled() {
@@ -100,3 +94,10 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
 }
 
+//MARK: - Extension AlertPresenterProtocolDelegate
+
+extension MovieQuizViewController: AlertPresenterProtocolDelegate {
+    func presentAlert(alert: UIAlertController) {
+        present(alert, animated: true, completion: nil)
+    }
+}

@@ -9,10 +9,10 @@ import UIKit
 
 final class AlertPresenter {
     
-    weak var viewController: MovieQuizViewControllerProtocol?
+    weak var delegate: AlertPresenterProtocolDelegate?
     
-    init(viewController: MovieQuizViewControllerProtocol) {
-        self.viewController = viewController
+    init(delegate: AlertPresenterProtocolDelegate) {
+        self.delegate = delegate
     }
     
     func showAlert(alertModel: AlertModel) {
@@ -25,7 +25,7 @@ final class AlertPresenter {
             alertModel.completion()
         }
         alert.addAction(action)
-        viewController?.present(alert, animated: true)
+        delegate?.presentAlert(alert: alert)
         alert.view.accessibilityIdentifier = "Result alert"
     }
 }
