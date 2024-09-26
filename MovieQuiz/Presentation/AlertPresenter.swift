@@ -2,16 +2,16 @@
 //  AlertPresenter.swift
 //  MovieQuiz
 //
-//  Created by Александр Гарипов on 07.01.2023.
+//  Created by Александр Гарипов on 13.02.2023.
 //
 
 import UIKit
 
-class AlertPresenter: AlertPresenterProtocol {
+final class AlertPresenter {
     
-    weak var delegate: MovieQuizProtocolDelegate?
+    weak var delegate: AlertPresenterProtocolDelegate?
     
-    init (delegate: MovieQuizProtocolDelegate) {
+    init(delegate: AlertPresenterProtocolDelegate) {
         self.delegate = delegate
     }
     
@@ -20,11 +20,12 @@ class AlertPresenter: AlertPresenterProtocol {
             title: alertModel.title,
             message: alertModel.message,
             preferredStyle: .alert)
-            
+        
         let action = UIAlertAction(title: alertModel.buttonText, style: .default) {_ in
             alertModel.completion()
         }
         alert.addAction(action)
         delegate?.presentAlert(alert: alert)
+        alert.view.accessibilityIdentifier = "Result alert"
     }
 }
